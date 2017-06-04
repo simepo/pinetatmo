@@ -23,8 +23,12 @@ while True:
     
     screen = PapirusTextPos(False)
     
-    weatherData = lnetatmo.WeatherStationData(netatmo_authorization)
-    latest_data = weatherData.lastData()
+    try:
+        weatherData = lnetatmo.WeatherStationData(netatmo_authorization)
+        latest_data = weatherData.lastData()
+    except:
+        pass
+
     data_time = datetime.datetime.fromtimestamp(latest_data['Outdoor']['When']).strftime('%Y-%m-%d %H:%M')
     out_temp = '{: 6.1f}'.format(latest_data['Outdoor']['Temperature'])
     bedroom_temp = '{: 6.1f}'.format(latest_data['Indoor']['Temperature'])
