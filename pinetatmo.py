@@ -3,11 +3,19 @@ import lnetatmo
 import time, datetime
 import json
 import pyowm
+import yaml
 
-owm_key = 'b65fbb6ad3cd36e9158f5a801683ffd8'
+owm_config_file = '/home/pi/.owm'
 owm_location = 'Saffron Walden,uk'
 font = '/home/pi/PaPiRus/fonts/OpenSans-Semibold.ttf'
 arrow_font = '/home/pi/PaPiRus/fonts/Arrows.ttf'
+
+with open(owm_config_file, 'r') as owm_config:
+    try:
+        owm_key = yaml.load(owm_config)['apikey']
+    except yaml.YAMLError:
+        print 'Unable to parse OWM config file'
+        exit(1)
 
 while True:
     try:
