@@ -1,7 +1,7 @@
 from papirus import PapirusTextPos
 import lnetatmo
-import time, datetime
-import json
+import time
+import datetime
 import pyowm
 import yaml
 
@@ -23,14 +23,14 @@ while True:
         owm = pyowm.OWM(owm_key)
         break
     except:
-        print 'Unable to connect to Internet, waiting 30 seconds and retrying'
+        print 'Unable to connect to services, waiting 30 seconds and retrying'
         time.sleep(30)
 
 while True:
     now = time.strftime("%Y-%m-%d %H:%M")
-    
+
     screen = PapirusTextPos(False)
-    
+
     try:
         weatherData = lnetatmo.WeatherStationData(netatmo_authorization)
         latest_data = weatherData.lastData()
@@ -43,13 +43,13 @@ while True:
     out_temp = '{: 6.1f}'.format(latest_data['Outdoor']['Temperature'])
     bedroom_temp = '{: 6.1f}'.format(latest_data['Indoor']['Temperature'])
     out_humidity = latest_data['Outdoor']['Humidity']
-    if latest_data['Outdoor']['temp_trend'] == 'up':
-        trend_symbol = 'c'
-    elif latest_data['Outdoor']['temp_trend'] == 'down':
-        trend_symbol = 'd'
-    else:
-        trend_symbol = 'a'
-    
+#    if latest_data['Outdoor']['temp_trend'] == 'up':
+#        trend_symbol = 'c'
+#    elif latest_data['Outdoor']['temp_trend'] == 'down':
+#        trend_symbol = 'd'
+#    else:
+#        trend_symbol = 'a'
+
     if datetime.datetime.now().hour > 15:
         forecast_day = 1
         forecast_title = "Tomorrow"
@@ -63,7 +63,7 @@ while True:
 
     screen.AddText('Outdoor', 5, 3, 20, Id='OutTitle', font_path=font)
     screen.AddText(out_temp + u"\u00b0", 5, 10, 70, Id="OutTemp", font_path=font)
-    screen.AddText(trend_symbol, 170, 30, 50, font_path=arrow_font)
+#    screen.AddText(trend_symbol, 170, 30, 50, font_path=arrow_font)
     screen.AddText('Humidity ' + str(out_humidity) + '%', 5, 86, 12, Id='Humidity', font_path=font)
     screen.AddText('Bedroom', 5, 103, 15, Id='InTitle', font_path=font)
     screen.AddText(bedroom_temp + u"\u00b0", 5, 115, 35, Id='InTemp', font_path=font)
