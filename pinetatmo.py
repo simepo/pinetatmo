@@ -41,14 +41,8 @@ while True:
 
     data_time = datetime.datetime.fromtimestamp(latest_data['Outdoor']['When']).strftime('%Y-%m-%d %H:%M')
     out_temp = '{: 6.1f}'.format(latest_data['Outdoor']['Temperature'])
-    bedroom_temp = '{: 6.1f}'.format(latest_data['Indoor']['Temperature'])
+    bedroom_temp = '{: 6.1f}'.format(latest_data['Bedroom']['Temperature'])
     out_humidity = latest_data['Outdoor']['Humidity']
-#    if latest_data['Outdoor']['temp_trend'] == 'up':
-#        trend_symbol = 'c'
-#    elif latest_data['Outdoor']['temp_trend'] == 'down':
-#        trend_symbol = 'd'
-#    else:
-#        trend_symbol = 'a'
 
     if datetime.datetime.now().hour > 15:
         forecast_day = 1
